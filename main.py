@@ -7,12 +7,14 @@
 # return java function that multiplies matrix by input and applies the translation
 # enjoy!
 import ast
+import utils
+import numpy as np
 
 print("usage: <(x1,y1) (x2,y2)>, where x2,y2 is the result of the tranformation.")
-print("3 independent points needed.")
+print("3 points needed, that don't lie on a straight line.")
 
-points = []
-images = []
+points: list[tuple] = []
+images: list[tuple] = []
 
 for i in range(3):
     cur = input("point and image:")
@@ -24,4 +26,6 @@ for i in range(3):
     points.append(curPoint)
     images.append(curIm)
 
+pointsNormalized = utils.normalizePoints(points)
+imagesNormalized = utils.normalizePoints(images)
 
