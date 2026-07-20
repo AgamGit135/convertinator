@@ -9,23 +9,40 @@
 import ast
 import utils
 import numpy as np
+def main():
+    print("usage: <(x1,y1) (x2,y2)>, where x2,y2 is the result of the tranformation.")
+    print("3 points needed, that don't lie on a straight line.")
 
-print("usage: <(x1,y1) (x2,y2)>, where x2,y2 is the result of the tranformation.")
-print("3 points needed, that don't lie on a straight line.")
+    points: list[tuple] = []
+    images: list[tuple] = []
 
-points: list[tuple] = []
-images: list[tuple] = []
+    for i in range(3):
+        cur = input("point and image:")
+        cur.split()
 
-for i in range(3):
-    cur = input("point and image:")
-    cur.split()
+        # evaluate point and image as tuples
+        curPoint = ast.literal_eval(cur[0]) 
+        curIm = ast.literal_eval(cur[1])
+        points.append(curPoint)
+        images.append(curIm)
 
-    # evaluate point and image as tuples
-    curPoint = ast.literal_eval(cur[0]) 
-    curIm = ast.literal_eval(cur[1])
-    points.append(curPoint)
-    images.append(curIm)
+    pointsNormalized = utils.normalizePoints(points)
+    imagesNormalized = utils.normalizePoints(images)
 
-pointsNormalized = utils.normalizePoints(points)
-imagesNormalized = utils.normalizePoints(images)
+    # convert to np array to use np utils
+    pointsNormalized = np.array(pointsNormalized)
+    imagesNormalized = np.array(imagesNormalized)
 
+    # if rank of matrix is <= 1, all points must be proportional
+    if np.linalg.matrix_rank(pointsNormalized) <= 1:
+        raise ValueError("Fatal: points are on a straight line.")
+    
+    for i in range(3):
+        tempPoints = np.delete(points, i, axis=0)
+        tempIms = np.delete(images,i,axis=0)
+        if utils.isIndependent(tempPoints):
+            # todo: make tempIms and tempPoints the actual matrices
+            break
+
+if __name__ == "__main__":
+    main()

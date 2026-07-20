@@ -1,4 +1,4 @@
-
+import numpy as np
 def normalizePoints(points: list[tuple]):
     CoM: tuple = getCenterOfMass(points)
     out: list[tuple] = []
@@ -29,3 +29,6 @@ def pointMinus(a: tuple, b: tuple):
         out.append(a[i] - b[i])
     
     return tuple(out)
+
+def isIndependent(arr):
+    return np.linalg.matrix_rank(arr) == len(arr)
