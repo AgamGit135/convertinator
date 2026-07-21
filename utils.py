@@ -32,3 +32,11 @@ def pointMinus(a: tuple, b: tuple):
 
 def isIndependent(arr):
     return np.linalg.matrix_rank(arr) == len(arr)
+
+def convertToTuple(input: str):
+    parts = input.split()
+    try:
+        out = tuple(int(x) for x in parts)
+    except:
+        raise TypeError("illegal input")
+    return out
