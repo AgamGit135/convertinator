@@ -37,12 +37,30 @@ def main():
     if np.linalg.matrix_rank(pointsNormalized) <= 1:
         raise ValueError("Fatal: points are on a straight line.")
     
+    # choose 2 points s.t. they are invertible
+    invertiblePointMatrix = []
+    imageMatrix = []
+
+    # 3 = 3 choose 2
     for i in range(3):
         tempPoints = np.delete(points, i, axis=0)
         tempIms = np.delete(images,i,axis=0)
         if utils.isIndependent(tempPoints):
-            # todo: make tempIms and tempPoints the actual matrices
+            invertiblePointMatrix = tempPoints
+            imageMatrix = tempIms
             break
+    
+    # use random horn thingy to get transformation matrix and translation vector
+    pointMatrixInverse = np.linalg.inv(invertiblePointMatrix)
+    transformationMatrix = np.matmul(pointMatrixInverse,imageMatrix)
+
+    CoMPoints = np.array(utils.getCenterOfMass(points))
+    CoMIms = np.array(utils.getCenterOfMass(images))
+
+    t = CoMIms - np.matmul(transformationMatrix,CoMPoints)
+
+    #java does not have matrix multiplication!!
+    
 
 if __name__ == "__main__":
     main()
