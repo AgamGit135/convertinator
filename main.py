@@ -25,6 +25,10 @@ def main():
         points.append(curPoint)
         images.append(curIm)
 
+    # if rank of matrix is <= 1, all points must be proportional
+    if np.linalg.matrix_rank(pointsNormalized) <= 1:
+        raise ValueError("Fatal: points are on a straight line.")
+
     heading = int(input("heading:"))
     headingImage = int(input("heading image:"))
     distUnit = input("distance unit:")
@@ -36,10 +40,6 @@ def main():
     # convert to np array to use np utils
     pointsNormalized = np.array(pointsNormalized)
     imagesNormalized = np.array(imagesNormalized)
-
-    # if rank of matrix is <= 1, all points must be proportional
-    if np.linalg.matrix_rank(pointsNormalized) <= 1:
-        raise ValueError("Fatal: points are on a straight line.")
     
     # choose 2 points s.t. they are invertible
     invertiblePointMatrix = []

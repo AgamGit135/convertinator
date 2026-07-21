@@ -36,7 +36,7 @@ def isIndependent(arr):
 def convertToTuple(input: str):
     parts = input.split()
     try:
-        out = tuple(int(x) for x in parts)
+        out = tuple(float(x) for x in parts)
     except:
         raise TypeError("illegal input")
     return out
