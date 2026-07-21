@@ -12,7 +12,7 @@ import numpy as np
 def main():
     print("input 3 points that don't lie on a straight line are needed. newlines in between.")
     print("after that, input a heading and the resulting heading, and the output units")
-    print("each point/image is with this syntax: (x,y)")
+    print("each point/image is with this syntax: x y")
     points: list[tuple] = []
     images: list[tuple] = []
 
@@ -63,7 +63,6 @@ def main():
     CoMIms = np.array(utils.getCenterOfMass(images))
 
     t = CoMIms - np.matmul(transformationMatrix,CoMPoints)
-
     # ugly string manipulation
     print("\n") # newline to look nicer
     print("public Pose2D convert(Pose2D pose){")   
@@ -74,8 +73,8 @@ def main():
     print("    if (newHead < -180) newHead += 360;")
     # kill me now why isnt there built in matrix multiplication
     print("    // no built in matrix multiplication :(")
-    print(f"    double newX = x*{transformationMatrix[0][0]} + y*{transformationMatrix[0][1]} + {t[0]};")
-    print(f"    double newY = x*{transformationMatrix[1][0]} + y*{transformationMatrix[1][1]} + {t[1]};")
+    print(f"    double newX = x*{round(transformationMatrix[0][0],3)} + y*{round(transformationMatrix[0][1],3)} + {round(t[0],3)};")
+    print(f"    double newY = x*{round(transformationMatrix[1][0],3)} + y*{round(transformationMatrix[1][1],3)} + {round(t[1],3)};")
     print(f"    return new Pose2D(DistanceUnit.{distUnit}, newX,newY,AngleUnit.{angleUnit},newHead);")
     print("}")
 
