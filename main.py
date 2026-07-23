@@ -26,7 +26,7 @@ def main():
         images.append(curIm)
 
     # if rank of matrix is <= 1, all points must be proportional
-    if np.linalg.matrix_rank(pointsNormalized) <= 1:
+    if np.linalg.matrix_rank(points) <= 1:
         raise ValueError("Fatal: points are on a straight line.")
 
     heading = int(input("heading:"))
