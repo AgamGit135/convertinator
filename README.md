@@ -20,4 +20,4 @@ y). To have a single solution,you must have... 6 of them, or 3 points. If the po
 
 ### Getting M and t
 Let $p_{1},p_{2},p_{3}$ be the input points and $q_{1},q_{2},q_{3}$ be their respective images. Let P be the center of mass of the points and Q be the center of mass of the images. From a theorem
-my mum told me about, $T(P) = Q$.
+my mum told me about, $T(P) = Q$, where T is the affine transformation. 
