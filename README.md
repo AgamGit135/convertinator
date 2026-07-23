@@ -14,10 +14,27 @@ This way, the changes in angles are decoupled from the changes in position, so I
 Let a given point be p and its output be q. Then, there exists a 2X2 matrix M and a vector t such that:
 
 $$q = Mp + t$$
-
+columns
 As $M \in M_{2}(\mathbb{R})$, it has 4 entries. T is a vector and therefore has two entries. Therefore, you can model each point and output pair as two 6 variable equations (one for x and one for
 y). To have a single solution,you must have... 6 of them, or 3 points. If the points are collinear, those equations turn out to have more then one solution (trust).
 
 ### Getting M and t
 Let $p_{1},p_{2},p_{3}$ be the input points and $q_{1},q_{2},q_{3}$ be their respective images. Let P be the center of mass of the points and Q be the center of mass of the images. From a theorem
-my mum told me about, $T(P) = Q$, where T is the affine transformation. 
+my mum told me about, $T(P) = Q$, where T is the affine transformation. Notice that:
+
+$$T(p_{i}) - T(P) = Mp_{i} + t - (MP + t) = M(p_{i} - P) = q_{i} - Q$$
+Let $p_{i}' = p_{i} - P$ and $q_{i}' = q_{i} - Q$. As $dim(Sp(P)) > 1$ (we defined the points as not collinear!), we can choose 2 independent points and set them as the columns of a matrix $P'$, and let their images (in the same order) be the matrix $Q'$. We now have:
+
+$$MP' = Q' \Rightarrow M = (Q')(P')^{-1}$$
+
+And we have M! To find t we can just do $Q - MP = T(P) - MP = t$.
+
+*The only possible changes with the angle are rotation by a constant.
+
+*It isn't imlemented exactly like this, as the independend points are the rows and not columns.
+
+### Conclusion
+I got 92 in Linear Algebra. I AM NOW UNSTOPPABLE (with the help of my mum)
+
+## Testing and results
+TBD
