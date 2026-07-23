@@ -58,6 +58,7 @@ def main():
     # use random horn thingy to get transformation matrix and translation vector
     pointMatrixInverse = np.linalg.inv(invertiblePointMatrix)
     transformationMatrix = np.matmul(pointMatrixInverse,imageMatrix)
+    transformationMatrix = np.transpose(transformationMatrix)
 
     CoMPoints = np.array(utils.getCenterOfMass(points))
     CoMIms = np.array(utils.getCenterOfMass(images))
